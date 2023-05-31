@@ -275,11 +275,10 @@ namespace TradeAssistant
                         BaseItem tmp_item = BaseItem.Create(jsonobject["ItemID"].I, jsonobject["Num"].I, jsonobject["UUID"].Str, jsonobject["Seid"]);
                         int tmp_now_jiage = tmp_item.GetJiaoYiPrice(tmp_npcid, false, false);
                         int tmp_zongjia = tmp_now_jiage * tmp_item_num;
-                        if (player.money > (ulong)tmp_zongjia
-                             && ((tmp_item.Type == 6 && tmp_item.GetBaseQuality() == 5 && tmp_now_jiage <= 4350 * 9)
+                        if ((tmp_item.Type == 6 && tmp_item.GetBaseQuality() == 5 && tmp_now_jiage <= 4350 * 9)
                              || (tmp_item.Type == 6 && tmp_now_jiage <= tmp_item.BasePrice * 1.05f + 1)
                              || (tmp_item.Type == 5 && tmp_item.GetBaseQuality() >= 3 && tmp_now_jiage < tmp_item.BasePrice)
-                             || (tmp_item.Type == 8 && tmp_item.GetBaseQuality() >= 5 && tmp_now_jiage <= tmp_item.BasePrice * 1.05f + 1)))
+                             || (tmp_item.Type == 8 && tmp_item.GetBaseQuality() >= 5 && tmp_now_jiage <= tmp_item.BasePrice * 1.05f + 1))
                         {
                             remove_item_npcid tmp_rin = new remove_item_npcid();
                             tmp_rin.tmp_npcid = tmp_npcid;
@@ -301,11 +300,14 @@ namespace TradeAssistant
                 string tmp_item_uuid = tmp_rin.tmp_item_uuid;
                 JSONObject tmp_item_seid = tmp_rin.tmp_item_seid;
                 int tmp_zongjia = tmp_rin.tmp_zongjia;
-                NpcJieSuanManager.inst.RemoveItem(tmp_npcid, tmp_item_id, tmp_item_num, tmp_item_uuid);
-                new NpcSetField().AddNpcMoney(tmp_npcid, tmp_zongjia);
-                player.addItem(tmp_item_id, tmp_item_seid, tmp_item_num);
-                player.money -= (ulong)tmp_zongjia;
-                tmp_xiaofei += tmp_zongjia;
+                if ((ulong)tmp_zongjia < player.money)
+                {
+                    NpcJieSuanManager.inst.RemoveItem(tmp_npcid, tmp_item_id, tmp_item_num, tmp_item_uuid);
+                    new NpcSetField().AddNpcMoney(tmp_npcid, tmp_zongjia);
+                    player.addItem(tmp_item_id, tmp_item_seid, tmp_item_num);
+                    player.money -= (ulong)tmp_zongjia;
+                    tmp_xiaofei += tmp_zongjia;
+                }
             }
             UIPopTip.Inst.Pop("共消费" + tmp_xiaofei.ToString(), PopTipIconType.叹号);
         }
