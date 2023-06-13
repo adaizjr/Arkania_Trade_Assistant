@@ -279,7 +279,7 @@ namespace TradeAssistant
                              || (tmp_item.Type == 6 && tmp_now_jiage <= tmp_item.BasePrice * 1.05f + 1)
                              || (tmp_item.Type == 5 && tmp_item.GetBaseQuality() >= 3 && tmp_now_jiage < tmp_item.BasePrice)
                              || ((tmp_item.Id == 5315 || tmp_item.Id == 5309 || tmp_item.Id == 5213) && tmp_now_jiage <= tmp_item.BasePrice * 1.05f + 1)
-                             || (tmp_item.Id == 6310)
+                             || (tmp_item.Id == 6310 || tmp_item.Id == 6307 || (tmp_item.Id == 6501 && tmp_now_jiage <= tmp_item.BasePrice * 1.85f + 1))
                              || (tmp_item.Type == 8 && tmp_item.GetBaseQuality() >= 5 && tmp_now_jiage <= tmp_item.BasePrice * 1.05f + 1))
                         {
                             remove_item_npcid tmp_rin = new remove_item_npcid();
