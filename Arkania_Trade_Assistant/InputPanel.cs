@@ -74,6 +74,7 @@ namespace TradeAssistant
             {
                 UIPopTip.Inst.Pop("一键购物！", PopTipIconType.叹号);
                 yijian_gouwu(false);
+                shentong_zhenqi();
                 return;
             }
 
@@ -83,6 +84,9 @@ namespace TradeAssistant
                 return;
             }
             if (Enumerable.Any<KeyValuePair<int, UnityEngine.GameObject>>(this.qualityDict, (KeyValuePair<int, UnityEngine.GameObject> t) => t.Value.GetComponent<Toggle>().isOn) && Enumerable.Any<KeyValuePair<int, UnityEngine.GameObject>>(this.typeDict, (KeyValuePair<int, UnityEngine.GameObject> t) => t.Value.GetComponent<Toggle>().isOn))
+            {
+            }
+            else
             {
                 UIPopTip.Inst.Pop("除非使用特殊选择，否则必须各选择一个品阶和类型！", PopTipIconType.叹号);
                 return;
@@ -258,6 +262,7 @@ namespace TradeAssistant
         private void yijian_gouwu(bool b_dengjia)
         {
             Avatar player = PlayerEx.Player;
+            int player_big_level = (player.level + 2) / 3;
             IEnumerable<UINPCSVItem> enumerable = Enumerable.Where<UINPCSVItem>(UINPCLeftList.Inst.RNpcList, (UINPCSVItem npc) => npc.NPCData.FavorLevel > 2);
             List<remove_item_npcid> l_remove = new List<remove_item_npcid>();
             int tmp_xiaofei = 0;
@@ -279,7 +284,7 @@ namespace TradeAssistant
                              || (tmp_item.Type == 6 && tmp_now_jiage <= tmp_item.BasePrice * 1.05f + 1)
                              || (tmp_item.Type == 5 && tmp_item.GetBaseQuality() >= 3 && tmp_now_jiage < tmp_item.BasePrice)
                              || ((tmp_item.Id == 5315 || tmp_item.Id == 5309 || tmp_item.Id == 5213) && tmp_now_jiage <= tmp_item.BasePrice * 1.05f + 1)
-                             || (tmp_item.Id == 6310 || tmp_item.Id == 6307 || (tmp_item.Id == 6501 && tmp_now_jiage <= tmp_item.BasePrice * 1.85f + 1))
+                             || ((tmp_item.Id == 6310 && player_big_level < 3) || tmp_item.Id == 6307 || (tmp_item.Id == 6501 && tmp_now_jiage <= tmp_item.BasePrice * 1.85f + 1))
                              || (tmp_item.Type == 8 && tmp_item.GetBaseQuality() >= 5 && tmp_now_jiage <= tmp_item.BasePrice * 1.05f + 1))
                         {
                             remove_item_npcid tmp_rin = new remove_item_npcid();
