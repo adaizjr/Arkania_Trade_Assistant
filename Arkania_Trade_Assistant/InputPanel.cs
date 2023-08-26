@@ -328,7 +328,7 @@ namespace TradeAssistant
         {
             IEnumerable<_ItemJsonData> enumerable = Enumerable.Where<_ItemJsonData>(_ItemJsonData.DataDict.Values, delegate (_ItemJsonData item)
             {
-                return item.type == 16 || item.type == 3 || item.type == 13 || item.type == 9 || (item.quality >= 5 && item.type == 6);
+                return item.type == 16 || item.type == 3 || item.type == 13 || item.type == 9 || (item.quality >= 5 && item.type == 6) || (item.quality >= 4 && item.type == 5);
             });
             this.CalcResult1(enumerable);
         }
