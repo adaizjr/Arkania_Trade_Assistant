@@ -288,7 +288,7 @@ namespace TradeAssistant
                              || (tmp_item.Id == 6310 && player_big_level < 3)
                              || (tmp_item.Type == 8 && tmp_item.GetBaseQuality() == 4 && tmp_now_jiage <= tmp_item.BasePrice && _ItemJsonData.DataDict[tmp_item_id].WuWeiType != 3 && _ItemJsonData.DataDict[tmp_item_id].WuWeiType != 2)
                              || (player_big_level < 3 && tmp_item.Type == 5 && tmp_item.GetBaseQuality() >= 3 && tmp_now_jiage <= tmp_item.BasePrice)
-                             || (player_big_level < 3 && tmp_item.Id == 5315 && tmp_now_jiage <= tmp_item.BasePrice * 1.05f + 1)
+                             || (tmp_item.Id == 5315 && tmp_now_jiage <= tmp_item.BasePrice * 1.05f + 1)
                              || (player_big_level >= 3 && tmp_item.Id == 6501 && tmp_now_jiage <= tmp_item.BasePrice * 1.85f + 1)
                              || (player_big_level >= 3 && tmp_item.Type == 8 && tmp_item.GetBaseQuality() >= 5 && tmp_now_jiage <= tmp_item.BasePrice * 1.05f + 1))
                         {
@@ -328,7 +328,7 @@ namespace TradeAssistant
         {
             IEnumerable<_ItemJsonData> enumerable = Enumerable.Where<_ItemJsonData>(_ItemJsonData.DataDict.Values, delegate (_ItemJsonData item)
             {
-                return item.type == 16 || item.type == 3 || item.type == 13 || item.type == 9 || (item.quality >= 5 && item.type == 6) || (item.quality >= 4 && item.type == 5);
+                return item.type == 16 || item.type == 3 || item.type == 13 || item.type == 9 || (item.quality >= 5 && item.type == 6) || (item.quality >= 5 && item.type == 5);
             });
             this.CalcResult1(enumerable);
         }
